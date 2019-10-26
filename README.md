@@ -79,26 +79,18 @@ Notes:
 
 ## Tests
 
+Here is a short description of the tests in the insight_testsuite/tests directory:
+
 1. The original insight test
-
 1. One line has been edited to have an invalid date: 
-
-```Hidalgo,Texas,2305,US-Mexico Border,02/91/2019 12:00:00 AM,Pedestrians,156891,POINT (-98.26278 26.1)```
-
-The program skips this line resulting in a sum for February that is less by 156891.
-
+    ```Hidalgo,Texas,2305,US-Mexico Border,02/91/2019 12:00:00 AM,Pedestrians,156891,POINT (-98.26278 26.1)```
+    The program skips this line resulting in a sum for February that is less by 156891.
 1. One date has been changed to be not the first of the month:
-
-```Eagle Pass,Texas,2303,US-Mexico Border,01/31/2019 12:00:00 AM,Pedestrians,56810,POINT (-100.49917 28.70889)```
-
-The program still gives the same output as the first test, since dates are rounded to the first of the month.
-
+    ```Eagle Pass,Texas,2303,US-Mexico Border,01/31/2019 12:00:00 AM,Pedestrians,56810,POINT (-100.49917 28.70889)```
+    The program still gives the same output as the first test, since dates are rounded to the first of the month.
 1. Two copies of the original insight test. The program should have 2 times the values on the output.
-
 1. Three different borders all with the same pedestrian traffic. The program should give the same numbers for all of them by month.
-
 1. Two different borders and two different measures.
-
 1. Same as original but zeros for all values.
 
 ## Requirements
