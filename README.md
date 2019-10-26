@@ -26,56 +26,34 @@ python3.7 border_analytics.py input_file output_file
 Alternatively, the class the can be imported and used as follows:
 
 1. Make BorderCrossing object bc with csv input file with fields including 'Border', 'Date', 'Measure', 'Value'. 
-
-```    
-bc = BorderCrossing(input_file)
-```   
-   
-The default format for the date entry in input_file is ```'%m/%d/%Y %I:%M:%S %p'``` using Python's datetime package. This can be modified with the class variable ```_timedate_format```.
-   
+    ```    
+    bc = BorderCrossing(input_file)
+    ```      
+    The default format for the date entry in input_file is ```'%m/%d/%Y %I:%M:%S %p'``` using Python's datetime package. This can be modified with the class variable ```_timedate_format```.
 1. Write the monthly totals to output csv file:
+    ```   
+    bc.write_file(output_file, sort_dir_rev=True)
+    ```
+    The sorting order is determined by sort_dir_rev:     
+    sort_dir_rev = True: sorted descending
+    sort_dir_rev = False: sorted ascending
    
-```   
-bc.write_file(output_file, sort_dir_rev=True)
-```
-The sorting order is determined by sort_dir_rev:     
-sort_dir_rev = True: sorted descending
-sort_dir_rev = False: sorted ascending
-   
-
 ## Algorithm
 
 Here are the steps of the algorithm with some notes on implementation/performance:
 
-1. The border data is read from the csv file. Each line is stored in a nested dictionary with layers given by ```[date][border][measure][value]=integer``` where integer is the value associated with a row.
-
-Notes: 
-
-- I chose the dictionary data type because it is fast for looking up values, and it logically fits the format of the data. One downside is that it is unordered, but the keys can be converted to sets and ordered. Alternatively, I could have used the OrderedDict type. I chose defaultdict instead, because of its ability to quickly add new values. 
-
-- One limitation of this implementation is that it will run out of memory if the input file and resulting dictionary are too big. In that case, the class would have to be rewritten to use disk space rather than memory. The advantage of the memory-based approach is that it will be faster for medium-sized data sets that can fit into memory.
-
-- Dates are stored as datetime objects, so they can be sorted. Rows with invalid dates (e.g. ```91/31/2019 12:00:00```) are skipped and displayed to the user. Dates are rounded to the 1st day of each month.
-
-- I read and load the file into the dictionary line by line so that I use minimal memory.
-
-1. The running monthly average of the data is computed. 
-
-Notes:
-
-- The average is started from the first date in the data. For example, if there are entries for the US-Mexico border, but not entries for the US-Canada border for the first 3 months, the running average for US-Canada will start from the US-Mexico first date.
-
-- The running average is rounded to the nearest int by dividing the running total by the months from the start. 
- 
-- In order to minimize compute time and memory usage, the program only loops through the dictionary once and keeps track of the months since the first month and the running totals of each measure. The dict keys are sorted ascending at each layer, and the running average entry is added to the dict one at a time at ```[date][border][measure]['run_avgerage']```.
-
-1. The dictionary results are sorted and output to a csv file.
-
-Notes:
-
-- The program loops through the dictionary, and sorts by descending at each layer. The csv file is written line by line to save memory.
-
-- If the user wanted an ascending order, then the data could have been written to file in the previous step. This would save time (one loop through the dict).
+1. The border data is read from the csv file. Each line is stored in a nested dictionary with layers given by ```[date][border][measure][value]=integer``` where integer is the value associated with a row. Notes: 
+    - I chose the dictionary data type because it is fast for looking up values, and it logically fits the format of the data. One downside is that it is unordered, but the keys can be converted to sets and ordered. Alternatively, I could have used the OrderedDict type. I chose defaultdict instead, because of its ability to quickly add new values. 
+    - One limitation of this implementation is that it will run out of memory if the input file and resulting dictionary are too big. In that case, the class would have to be rewritten to use disk space rather than memory. The advantage of the memory-based approach is that it will be faster for medium-sized data sets that can fit into memory.
+    - Dates are stored as datetime objects, so they can be sorted. Rows with invalid dates (e.g. ```91/31/2019 12:00:00```) are skipped and displayed to the user. Dates are rounded to the 1st day of each month.
+    - I read and load the file into the dictionary line by line so that I use minimal memory.
+1. The running monthly average of the data is computed. Notes:
+    - The average is started from the first date in the data. For example, if there are entries for the US-Mexico border, but not entries for the US-Canada border for the first 3 months, the running average for US-Canada will start from the US-Mexico first date.
+    - The running average is rounded to the nearest int by dividing the running total by the months from the start. 
+    - In order to minimize compute time and memory usage, the program only loops through the dictionary once and keeps track of the months since the first month and the running totals of each measure. The dict keys are sorted ascending at each layer, and the running average entry is added to the dict one at a time at ```[date][border][measure]['run_avgerage']```.
+1. The dictionary results are sorted and output to a csv file. Notes:
+    - The program loops through the dictionary, and sorts by descending at each layer. The csv file is written line by line to save memory.
+    - If the user wanted an ascending order, then the data could have been written to file in the previous step. This would save time (one loop through the dict).
 
 ## Tests
 
