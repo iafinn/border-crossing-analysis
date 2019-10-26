@@ -40,8 +40,8 @@ Alternatively, the class the can be imported and used as follows:
 
 Here are the steps of the algorithm with some notes on implementation/performance:
 
-1. **The border data is read from the csv file. Each line is stored in a nested dictionary with layers given by**
-    ```[date][border][measure][value]=integer``` 
+1. **The border data is read from the csv file. Each line is stored in a nested dictionary with layers given by**  
+    ```[date][border][measure][value]=integer```  
     **where integer is the value associated with a row.** Notes: 
     - I chose the dictionary data type because it is fast for looking up values, and it logically fits the format of the data. One downside is that it is unordered, but the keys can be converted to sets and ordered. Alternatively, I could have used the OrderedDict type. I chose defaultdict instead, because of its ability to quickly add new values. 
     - One limitation of this implementation is that it will run out of memory if the input file and resulting dictionary are too big. In that case, the class would have to be rewritten to use disk space rather than memory. The advantage of the memory-based approach is that it will be faster for medium-sized data sets that can fit into memory.
@@ -50,7 +50,7 @@ Here are the steps of the algorithm with some notes on implementation/performanc
 1. **The running monthly average of the data is computed.** Notes:
     - The average is started from the first date in the data. For example, if there are entries for the US-Mexico border, but not entries for the US-Canada border for the first 3 months, the running average for US-Canada will start from the US-Mexico first date.
     - The running average is rounded to the nearest int by dividing the running total by the months from the start. 
-    - In order to minimize compute time and memory usage, the program only loops through the dictionary once and keeps track of the months since the first month and the running totals of each measure. The dict keys are sorted ascending at each layer, and the running average entry is added to the dict one at a time at ```[date][border][measure]['run_average']```.
+    - In order to minimize compute time and memory usage, the program only loops through the dictionary once and keeps track of the months since the first month and the running totals of each measure. The dict keys are sorted ascending at each layer, and the running average entry is added to the dict one at a time at:  ```[date][border][measure]['run_average']```  
 1. **The dictionary results are sorted and output to a csv file.** Notes:
     - The program loops through the dictionary, and sorts by descending at each layer. The csv file is written line by line to save memory.
     - If the user wanted an ascending order, then the data could have been written to file in the previous step. This would save time (one loop through the dict).
@@ -60,11 +60,11 @@ Here are the steps of the algorithm with some notes on implementation/performanc
 Here is a short description of the tests in the insight_testsuite/tests directory:
 
 1. The original insight test
-1. One line has been edited to have an invalid date: 
-    ```02/91/2019 12:00:00 AM```
+1. One line has been edited to have an invalid date:  
+    ```02/91/2019 12:00:00 AM```  
     The program skips this line resulting in a sum for February that is less by 156891.
-1. One date has been changed to be not the first of the month:
-    ```01/31/2019 12:00:00 AM```
+1. One date has been changed to be not the first of the month:  
+    ```01/31/2019 12:00:00 AM```  
     The program still gives the same output as the first test, since dates are rounded to the first of the month.
 1. Two copies of the original insight test. The program should have 2 times the values on the output.
 1. Three different borders all with the same pedestrian traffic. The program should give the same numbers for all of them by month.
