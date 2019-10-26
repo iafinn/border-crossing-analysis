@@ -1,0 +1,13 @@
+Port Name,State,Port Code,Border,Date,Measure,Value,Location
+Calexico,California,2503,US-Mexico Border,03/01/2019 12:00:00 AM,Pedestrians,346158,POINT (-115.49806000000001 32.67889)
+Hidalgo,Texas,2305,US-Mexico Border,02/01/2019 12:00:00 AM,Pedestrians,156891,POINT (-98.26278 26.1)
+Presidio,Texas,2403,US-Mexico Border,02/01/2019 12:00:00 AM,Pedestrians,15272,POINT (-104.37167 29.56056)
+Eagle Pass,Texas,2303,US-Mexico Border,01/01/2019 12:00:00 AM,Pedestrians,56810,POINT (-100.49917 28.70889)
+Calexico,California,2503,US-Mexico Border,03/01/2019 12:00:00 AM,Pedestrians2,346158,POINT (-115.49806000000001 32.67889)
+Hidalgo,Texas,2305,US-Mexico Border,02/01/2019 12:00:00 AM,Pedestrians2,156891,POINT (-98.26278 26.1)
+Presidio,Texas,2403,US-Mexico Border,02/01/2019 12:00:00 AM,Pedestrians2,15272,POINT (-104.37167 29.56056)
+Eagle Pass,Texas,2303,US-Mexico Border,01/01/2019 12:00:00 AM,Pedestrians2,56810,POINT (-100.49917 28.70889)
+Calexico,California,2503,US-can Border,03/01/2019 12:00:00 AM,Pedestrians2,346158,POINT (-115.49806000000001 32.67889)
+Hidalgo,Texas,2305,US-can Border,02/01/2019 12:00:00 AM,Pedestrians2,156891,POINT (-98.26278 26.1)
+Presidio,Texas,2403,US-can Border,02/01/2019 12:00:00 AM,Pedestrians2,15272,POINT (-104.37167 29.56056)
+Eagle Pass,Texas,2303,US-can Border,01/01/2019 12:00:00 AM,Pedestrians2,56810,POINT (-100.49917 28.70889)
