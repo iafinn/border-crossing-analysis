@@ -34,7 +34,7 @@ Alternatively, the class the can be imported and used as follows:
     ```   
     bc.write_file(output_file, sort_dir_rev=True)
     ```
-    The sorting order is determined by sort_dir_rev: sort_dir_rev = True: sorted descending.
+    The sorting order is determined by ```sort_dir_rev``` with ```True``` for sorted descending.
    
 ## Algorithm
 
